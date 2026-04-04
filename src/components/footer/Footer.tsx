@@ -9,6 +9,6 @@ function Footer() {
           </button>
         </footer>
     )
-}
+};
 
 export default Footer;

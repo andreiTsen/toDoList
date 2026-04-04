@@ -10,7 +10,7 @@ function App() {
       <main className="todo-card">
         <Header />
         <Filters />
-       <TaskList />
+        <TaskList />
         <Footer />
       </main>
     </>
