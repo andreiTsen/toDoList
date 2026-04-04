@@ -24,7 +24,6 @@
             --transition: all 0.2s ease;
         }
 
-        /* Global Reset */
         * {
             margin: 0;
             padding: 0;
@@ -42,7 +41,6 @@
             padding: var(--spacing-md);
         }
 
-        /* Main Container */
         .todo-card {
             max-width: 500px;
             width: 100%;
@@ -54,7 +52,6 @@
             flex-direction: column;
         }
 
-        /* Header Section */
         .header {
             padding: var(--spacing-lg);
             border-bottom: 1px solid var(--color-border);
@@ -70,7 +67,6 @@
             margin-top: 0.25rem;
         }
 
-        /* Navigation / Filters */
         .filter-nav {
             background: var(--color-bg-secondary);
             padding: 0.75rem var(--spacing-lg);
@@ -106,7 +102,6 @@
             color: white;
         }
 
-        /* Task List Container */
         .task-list {
             padding: var(--spacing-lg);
             display: flex;
@@ -114,11 +109,10 @@
             gap: 1rem;
         }
 
-        /* Task Item Styles */
         .task-item {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
+            flex-direction: column;
+            gap: 0.85rem;
             padding: 1rem;
             border: 1px solid var(--color-border);
             border-radius: var(--radius-xl);
@@ -129,8 +123,10 @@
             border-color: #e2e8f0;
             transform: translateY(-1px);
         }
-        
-        /* Status variations */
+        .task-item.editing {
+            border-color: #c7d2fe;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.08);
+        }
         .task-item.inprogress {
             border-color: #dbeafe;
             background: rgba(239, 246, 255, 0.3);
@@ -138,6 +134,13 @@
         .task-item.done {
             opacity: 0.7;
             background: var(--color-bg-secondary);
+        }
+
+        .task-main-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
         }
 
         .task-content {
@@ -153,8 +156,8 @@
             flex-shrink: 0;
         }
         .status-dot.todo { background-color: var(--status-todo); }
-        .status-dot.inprogress { 
-            background-color: var(--status-inprogress); 
+        .status-dot.inprogress {
+            background-color: var(--status-inprogress);
             animation: pulse 2s infinite;
         }
         .status-dot.done { background-color: var(--status-done); }
@@ -186,6 +189,11 @@
         .task-label.inprogress { color: var(--status-inprogress); }
         .task-label.done { color: var(--status-done); }
 
+        .task-actions-menu {
+            position: relative;
+            flex-shrink: 0;
+        }
+
         .action-btn {
             background: none;
             border: none;
@@ -203,12 +211,108 @@
         .action-btn.done-btn {
             color: var(--status-done);
         }
+        .menu-toggle {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 9999px;
+        }
+        .menu-toggle.active,
+        .menu-toggle:hover {
+            background: #eef2ff;
+            color: var(--color-primary);
+        }
+        .menu-dots {
+            font-size: 1.2rem;
+            line-height: 1;
+            transform: translateY(-1px);
+        }
 
-        /* Footer Section */
+        .task-dropdown-menu {
+            position: absolute;
+            top: calc(100% + 0.4rem);
+            right: 0;
+            min-width: 160px;
+            padding: 0.35rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.85rem;
+            background: #fff;
+            box-shadow: 0 14px 30px rgba(15, 23, 42, 0.12);
+            z-index: 10;
+        }
+
+        .task-menu-btn {
+            width: 100%;
+            border: none;
+            background: transparent;
+            text-align: left;
+            padding: 0.7rem 0.85rem;
+            border-radius: 0.65rem;
+            font: inherit;
+            cursor: pointer;
+            color: var(--color-text-main);
+            transition: var(--transition);
+        }
+        .task-menu-btn:hover {
+            background: #f3f4f6;
+        }
+        .task-menu-btn.delete {
+            color: #dc2626;
+        }
+        .task-menu-btn.delete:hover {
+            background: #fef2f2;
+        }
+        .task-menu-btn.save {
+            background: var(--color-primary);
+            color: white;
+        }
+        .task-menu-btn.save:hover {
+            background: var(--color-primary-hover);
+        }
+        .task-menu-btn.cancel {
+            background: #e5e7eb;
+            color: #111827;
+        }
+        .task-menu-btn.cancel:hover {
+            background: #d1d5db;
+        }
+
+        .edit-task-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            padding-top: 0.25rem;
+        }
+        .edit-task-input,
+        .edit-task-select,
+        .add-task-input {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.75rem;
+            font: inherit;
+            color: var(--color-text-main);
+            background: #fff;
+        }
+        .edit-task-input:focus,
+        .edit-task-select:focus,
+        .add-task-input:focus {
+            outline: 2px solid rgba(79, 70, 229, 0.2);
+            border-color: var(--color-primary);
+        }
+        .edit-task-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
         .footer {
             padding: var(--spacing-lg);
             background: var(--color-bg-secondary);
             border-top: 1px solid var(--color-border);
+        }
+        .add-task-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
         }
         .add-task-btn {
             width: 100%;
@@ -229,7 +333,6 @@
             background: #111827;
         }
 
-        /* Utility classes for layout */
         .icon,
         .icons {
             width: 1.25rem;

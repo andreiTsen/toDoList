@@ -1,25 +1,42 @@
 {
   "tasks": [
     {
-      "id": 1,
+      "id": "1",
       "title": "Создать API",
       "status": "todo"
     },
     {
-      "id": 2,
+      "id": "2",
       "title": "Исправить ошибку входа",
       "status": "in_progress"
     },
     {
-      "id": 3,
+      "id": "3",
       "title": "Создать панель управления",
       "status": "done"
     }
   ],
   "filters": [
-    { "name": "all", "label": "Все" },
-    { "name": "todo", "label": "К выполнению" },
-    { "name": "in_progress", "label": "В процессе" },
-    { "name": "done", "label": "Готово" }
-  ]
+    {
+      "name": "all",
+      "label": "Все",
+      "id": "g3POIC8P370"
+    },
+    {
+      "name": "todo",
+      "label": "К выполнению",
+      "id": "HCmELM6-pm8"
+    },
+    {
+      "name": "in_progress",
+      "label": "В процессе",
+      "id": "aYXwKAvz-yA"
+    },
+    {
+      "name": "done",
+      "label": "Готово",
+      "id": "irgR6BZZUdw"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
