@@ -1,25 +1,41 @@
-import type { Todo } from "../types/types";
+import type { FilterItem, Todo } from "../types/types";
 
-const BASE_URL = "http://localhost:3001/tasks";
+const TASKS_URL = "http://localhost:3001/tasks";
+const FILTERS_URL = "http://localhost:3001/filters";
 
 export async function getTasks() {
     try {
-        const response = await fetch(BASE_URL);
+        const response = await fetch(TASKS_URL);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data: Todo[] = await response.json();
-        console.log("Полученные данные:", data);
+        console.log("Полученные задачи:", data);
         return data;
     } catch (error) {
-        console.error("Ошибка при получении данных:", error);
+        console.error("Ошибка при получении задач:", error);
+        return null;
+    }
+}
+
+export async function getFilters() {
+    try {
+        const response = await fetch(FILTERS_URL);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data: FilterItem[] = await response.json();
+        console.log("Полученные фильтры:", data);
+        return data;
+    } catch (error) {
+        console.error("Ошибка при получении фильтров:", error);
         return null;
     }
 }
 
 export async function addTask(newTask: Omit<Todo, "id">) {
     try {
-        const response = await fetch(BASE_URL, {
+        const response = await fetch(TASKS_URL, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -38,9 +54,9 @@ export async function addTask(newTask: Omit<Todo, "id">) {
     }
 }
 
-export async function updateTask(id: number, updates: Partial<Omit<Todo, "id">>) {
+export async function updateTask(id: string, updates: Partial<Omit<Todo, "id">>) {
     try {
-        const response = await fetch(`${BASE_URL}/${id}`, {
+        const response = await fetch(`${TASKS_URL}/${id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -59,9 +75,9 @@ export async function updateTask(id: number, updates: Partial<Omit<Todo, "id">>)
     }
 }
 
-export async function deleteTask(id: number) {
+export async function deleteTask(id: string) {
     try {
-        const response = await fetch(`${BASE_URL}/${id}`, {
+        const response = await fetch(`${TASKS_URL}/${id}`, {
             method: "DELETE",
         });
         if (!response.ok) {

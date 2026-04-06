@@ -4,15 +4,21 @@ import Header from './components/header/Header';
 import Filters from './components/filters/Filters';
 import TaskList from './components/taskList/TaskList';
 import Footer from './components/footer/Footer';
-import { addTask, deleteTask, getTasks, updateTask } from './services/api';
-import type { Todo } from './types/types';
+import { addTask, deleteTask, getFilters, getTasks, updateTask } from './services/api';
+import type { FilterItem, Todo } from './types/types';
 
 function App() {
   const [tasks, setTasks] = useState<Todo[]>([]);
+  const [filters, setFilters] = useState<FilterItem[]>([]);
+  const [activeFilter, setActiveFilter] = useState('all');
 
   useEffect(() => {
     void getTasks().then((data) => {
       setTasks(data ?? []);
+    });
+
+    void getFilters().then((data) => {
+      setFilters(data ?? []);
     });
   }, []);
 
@@ -33,7 +39,7 @@ function App() {
     }
   };
 
-  const handleDeleteTask = async (id: number) => {
+  const handleDeleteTask = async (id: string) => {
     const isDeleted = await deleteTask(id);
 
     if (isDeleted) {
@@ -41,7 +47,7 @@ function App() {
     }
   };
 
-  const handleUpdateTask = async (id: number, updates: Partial<Omit<Todo, 'id'>>) => {
+  const handleUpdateTask = async (id: string, updates: Partial<Omit<Todo, 'id'>>) => {
     const updatedTask = await updateTask(id, updates);
 
     if (updatedTask) {
@@ -51,13 +57,21 @@ function App() {
     }
   };
 
+  const visibleTasks = activeFilter === 'all'
+    ? tasks
+    : tasks.filter((task) => task.status === activeFilter);
+
   return (
     <>
       <main className="todo-card">
         <Header />
-        <Filters />
+        <Filters
+          filters={filters}
+          activeFilter={activeFilter}
+          onFilterChange={setActiveFilter}
+        />
         <TaskList
-          tasks={tasks}
+          tasks={visibleTasks}
           onDeleteTask={handleDeleteTask}
           onUpdateTask={handleUpdateTask}
         />

@@ -9,13 +9,13 @@ const statusLabels: Record<string, string> = {
 
 type TaskListProps = {
     tasks: Todo[];
-    onDeleteTask: (id: number) => Promise<void>;
-    onUpdateTask: (id: number, updates: Partial<Omit<Todo, 'id'>>) => Promise<void>;
+    onDeleteTask: (id: string) => Promise<void>;
+    onUpdateTask: (id: string, updates: Partial<Omit<Todo, 'id'>>) => Promise<void>;
 };
 
 function TaskList({ tasks, onDeleteTask, onUpdateTask }: TaskListProps) {
-    const [activeMenuId, setActiveMenuId] = useState<number | null>(null);
-    const [editingTaskId, setEditingTaskId] = useState<number | null>(null);
+    const [activeMenuId, setActiveMenuId] = useState<string | null>(null);
+    const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
     const [editTitle, setEditTitle] = useState('');
     const [editStatus, setEditStatus] = useState<Todo['status']>('todo');
 
@@ -26,7 +26,7 @@ function TaskList({ tasks, onDeleteTask, onUpdateTask }: TaskListProps) {
         setActiveMenuId(null);
     };
 
-    const handleSave = async (id: number) => {
+    const handleSave = async (id: string) => {
         const trimmedTitle = editTitle.trim();
 
         if (!trimmedTitle) {

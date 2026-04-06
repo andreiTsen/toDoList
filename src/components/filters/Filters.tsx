@@ -1,22 +1,33 @@
-const elements = [
-    { id: 1, name: 'Все', active: true },
-    { id: 2, name: 'К выполнению', active: false },
-    { id: 3, name: 'В процессе', active: false },
-    { id: 4, name: 'Готово', active: false },
-];
+import type { FilterItem } from '../../types/types';
 
-function Filters() {
+type FiltersProps = {
+    filters: FilterItem[];
+    activeFilter: string;
+    onFilterChange: (filterName: string) => void;
+};
+
+function Filters({ filters, activeFilter, onFilterChange }: FiltersProps) {
     return (
         <nav className="filter-nav">
           <ul className="filter-list">
-            {elements.map((elements) => {
+            {filters.map((filter) => {
+                const isActive = filter.name === activeFilter;
+
                 return (
-                    <li key={elements.id}><button className={`filter-btn ${elements.active ? 'active' : ''}`}>{elements.name}</button></li>
-                )
+                    <li key={filter.id}>
+                        <button
+                            className={`filter-btn ${isActive ? 'active' : ''}`}
+                            type="button"
+                            onClick={() => onFilterChange(filter.name)}
+                        >
+                            {filter.label}
+                        </button>
+                    </li>
+                );
             })}
           </ul>
         </nav>
-    )
-};
+    );
+}
 
 export default Filters;
