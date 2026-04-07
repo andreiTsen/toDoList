@@ -1,6 +1,6 @@
 # toDoList
 
-Simple TODO list built with React and TypeScript.
+Simple TODO list built with React and TypeScript and Vite.
 
 ## Overview
 
